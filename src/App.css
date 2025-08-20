@@ -1,0 +1,566 @@
+html,
+body {
+  background-color: #0a0a0a;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+/* header */
+.app-header {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #fff;
+}
+/* メイン画面の上半分 */
+.top-panel {
+  height: 600px;
+  background-color: #0a0a0a;
+  display: flex; /* 横並びにする */
+  flex-direction: row; /* 横方向（デフォルト） */
+  gap: 24px;
+}
+/* メイン画面の下半分 */
+.calendar-panel {
+  height: 300px;
+  padding: 10px 20px;
+  background-color: #0a0a0a;
+}
+#root {
+  max-width: 100vw;
+  max-height: 100vh;
+  background-color: #0a0a0a;
+}
+/* ＝＝カレンダーのスタイル＝＝ */
+.react-calendar {
+  background-color: #0a0a0a;
+  border: none !important;
+  min-width: 80vw;
+  min-height: 50vh;
+  margin: 0 auto;
+}
+/* 今日の日付 */
+.react-calendar__tile--now {
+  background: #0a0a0a;
+}
+/* 年送り用のボタンを消す */
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  display: none;
+}
+/* 曜日 */
+.react-calendar__month-view__weekdays {
+  text-align: left;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 0.75em;
+}
+/* 曜日の下線削除 */
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+}
+/*月・年の表示*/
+.react-calendar__navigation__label {
+  font-family: "Jersey 15", system-ui, sans-serif !important;
+  font-size: 25px !important;
+  pointer-events: none !important;
+}
+/* ホバー時の背景・文字色の変化を完全に無効化 */
+.react-calendar__tile:hover {
+  background: transparent !important;
+  color: #fff;
+}
+.react-calendar__tile:enabled:focus abbr {
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: none !important;
+}
+/* 選択（クリック）された状態の背景／文字色変化を無効化 */
+.react-calendar__tile--active,
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:focus {
+  background: transparent !important;
+  color: inherit !important;
+}
+.react-calendar__navigation button {
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  text-align: left !important;
+}
+.react-calendar__navigation {
+  height: 80px;
+  /* margin-bottom: 1em; */
+}
+/*preボタン*/
+.react-calendar__navigation__prev-button {
+  font-size: 30px !important;
+}
+/*nextボタン*/
+.react-calendar__navigation__next-button {
+  font-size: 30px !important;
+}
+/* ── 月ビューの週ごとに横線を入れる ── */
+.react-calendar__month-view__days .react-calendar__tile:nth-child(n + 8) {
+  /* タイル上部に1pxの実線 */
+  border-top: 1px solid #fff !important;
+
+  /* 上部の余白を少し広げて線と文字がかぶらないように */
+  padding-top: calc((var(--react-calendar-tile-padding, 8px)) + 2px) !important;
+}
+/* ── 月ラベル＆ナビゲーションを除いた部分を白枠で囲む ── */
+.react-calendar__month-view {
+  border: 1px solid #fff;
+  overflow: hidden;
+  margin-top: 8px;
+}
+/* ── 曜日ヘッダーと日付の間に横線を追加 ── */
+.react-calendar__month-view__weekdays {
+  border-bottom: 1px solid #fff;
+  /* 下の行とくっつきすぎている場合は余白を入れる */
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: #fff;
+}
+/* 月ビュー（日付グリッド全体）に白枠をつける */
+.react-calendar__month-view {
+  border: 1px solid #fff;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.react-calendar__navigation {
+  background: transparent;
+  border: none;
+}
+/* == 進捗リング == */
+.cell-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%);
+}
+
+/* == YEAR/WEEK/Completion == */
+.top-left {
+  min-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 50px;
+}
+.goal-block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 8px;
+}
+.goal-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.goal-label {
+  font-size: 36px;
+}
+.edit {
+  color: #fff;
+  background-color: #0a0a0a;
+}
+.goal-input {
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: 22px;
+  padding: 0;
+  line-height: 1.5;
+  height: 1.4em;
+  display: block;
+  font-family: "DotGothic16", sans-serif;
+}
+
+.goal-text {
+  font-size: 22px;
+  padding: 0;
+  line-height: 1.4;
+  display: block;
+  font-family: "DotGothic16", sans-serif;
+}
+/* == Completion Rate == */
+.completion {
+  margin-top: 24px;
+}
+
+.comp-title {
+  font-family: "Jersey 15", system-ui, sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.comp-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.comp-month {
+  font-family: "Jersey 15", system-ui, sans-serif;
+  font-size: 40px;
+  min-width: 120px;
+}
+
+.comp-ring {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comp-percent {
+  position: absolute;
+  font-family: "Jersey 15", system-ui, sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+}
+/* == プレビュー == */
+.top-right {
+  position: relative;
+  border: 1px solid #fff;
+  margin-top: 30px;
+  padding: 5px;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 36px;
+}
+.arrow {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+}
+.card-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+}
+.card-edit {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background: #0a0a0a;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.chk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chk input {
+  display: none;
+}
+.chk .title {
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+}
+
+/* チェックボックス */
+.cbx {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.cbx-box {
+  width: 22px;
+  height: 22px;
+  color: #fff;
+}
+.cbx-check {
+  position: absolute;
+  font-size: 26px;
+  color: #ff6b00;
+  pointer-events: none;
+}
+
+/* == 編集画面 == */
+.day-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.day-panel {
+  position: relative;
+  width: min(820px, 90vw);
+  min-height: 420px;
+  border: 1px solid #fff;
+  background: #0a0a0a;
+  padding: 18px;
+  border-radius: 4px;
+}
+.day-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 280px;
+  overflow: auto;
+}
+.day-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.day-item .chk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.day-item .edit {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+.day-empty {
+  opacity: 0.7;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14;
+}
+.add {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+}
+.day-progress {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.day-progress-num {
+  position: absolute;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* == 項目編集画面== */
+.task-modal-bg {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 1100;
+  padding-top: 40vh;
+}
+
+.task-modal {
+  width: min(620px, 92vw);
+  background: #696969;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  padding: 18px;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  max-height: 84vh;
+  overflow: auto;
+}
+.tm-title {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #fff;
+  background: #696969;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "DotGothic16", sans-serif;
+}
+.tm-row {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tm-label {
+  min-width: 72px;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+}
+.tm-repeat {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+  justify-content: space-between;
+  width: 100%;
+}
+.tm-chip {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 6px 30px;
+  cursor: pointer;
+}
+.up {
+  background: none;
+  color: #ff6b00;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+.down {
+  background: none;
+  color: #ff6b00;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+.tm-chip.active {
+  background: #ff6b00;
+  border-color: #fff;
+  color: #fff;
+}
+.tm-num-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.updown-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tm-selects {
+  display: flex;
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.tm-step {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.tm-label-text {
+  color: #fff;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+}
+.tm-num {
+  width: 64px;
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 6px;
+  border-radius: 4px;
+}
+.tm-weekdays {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.tm-wd {
+  width: 36px;
+  height: 36px;
+  font-family: "DotGothic16", sans-serif;
+  font-size: 14px;
+  border: 1px solid #fff;
+  border-radius: 18px;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tm-wd.active {
+  background: #ff6b00;
+  border-color: #fff;
+  color: #fff;
+}
+.tm-end {
+  justify-content: flex-start;
+}
+.tm-end-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tm-date {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 6px;
+  border-radius: 4px;
+}
+.tm-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.tm-delete {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+}
