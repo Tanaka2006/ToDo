@@ -50,6 +50,9 @@ body {
 .react-calendar__tile--now {
   background: #0a0a0a;
 }
+.react-calendar__tile--now .rc-day-num {
+  color: #ff6b00 !important;
+}
 /* 年送り用のボタンを消す */
 .react-calendar__navigation__prev2-button,
 .react-calendar__navigation__next2-button {
@@ -140,6 +143,9 @@ body {
 .react-calendar__navigation {
   background: transparent;
   border: none;
+}
+.react-calendar__month-view__days .react-calendar__tile--now {
+  border-top: 1px solid #ff6b00 !important;
 }
 /* == 進捗リング == */
 .cell-ring {

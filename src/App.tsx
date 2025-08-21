@@ -187,10 +187,10 @@ const App: React.FC = () => {
     newDate.setDate(newDate.getDate() + days);
     return newDate;
   };
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("yearGoal", yearGoal);
   }, [yearGoal]);
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("weekGoal", weekGoal);
   }, [weekGoal]);
 
@@ -452,23 +452,20 @@ const App: React.FC = () => {
             setValue(d as Date);
           }}
           value={value ?? undefined} // 現在の選択日付を反映させる
-          tileContent={({ date, view }) => {
-            // 月表示のときだけカスタムitemを表示
-            return (
-              <div
-                style={{
-                  height: "116px",
-                  textAlign: "start",
-                  position: "relative",
-                }}
-              >
-                {date.getDate()}
-                <div className="cell-ring">
-                  <Ring progress={getProgressFor(fmt(date))} />
-                </div>
+          tileContent={({ date }) => (
+            <div
+              style={{
+                height: "116px",
+                textAlign: "start",
+                position: "relative",
+              }}
+            >
+              <span className="rc-day-num">{date.getDate()}</span>
+              <div className="cell-ring">
+                <Ring progress={getProgressFor(fmt(date))} />
               </div>
-            );
-          }}
+            </div>
+          )}
         />
       </div>
       {/*編集画面*/}
