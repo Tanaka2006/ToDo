@@ -1,14 +1,14 @@
-import { RiPencilFill, RiCheckboxBlankLine, RiCheckFill } from "react-icons/ri";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { FaTrash, FaChevronUp, FaChevronDown } from "react-icons/fa";
-import "@fontsource/dotgothic16/400.css";
-import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import "./App.css";
+import { RiPencilFill, RiCheckboxBlankLine, RiCheckFill } from 'react-icons/ri';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import { FaTrash, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import '@fontsource/dotgothic16/400.css';
+import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import './App.css';
 
 // 進捗計算・保存
-type Repeat = "none" | "daily" | "weekly" | "monthly" | "yearly";
+type Repeat = 'none' | 'daily' | 'weekly' | 'monthly' | 'yearly';
 export type Task = {
   id: string; // 任意ID
   title: string; // タスク名
@@ -21,9 +21,10 @@ export type Task = {
 };
 
 const fmt = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-    d.getDate()
-  ).padStart(2, "0")}`;
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(
+    2,
+    '0',
+  )}`;
 const isOnDate = (task: Task, ymd: string) => {
   const cur = new Date(ymd);
   const start = new Date(task.date);
@@ -36,30 +37,26 @@ const isOnDate = (task: Task, ymd: string) => {
     if (cur > end) return false;
   }
   switch (task.repeat) {
-    case "none":
+    case 'none':
       return ymd === task.date;
-    case "daily": {
+    case 'daily': {
       const diff = Math.floor((+cur - +start) / 86400000);
       const k = Math.max(1, task.repeatInterval ?? 1);
       return diff % k === 0;
     }
-    case "weekly": {
-      const days = task.repeatDays?.length
-        ? task.repeatDays
-        : [(start.getDay() + 6) % 7];
+    case 'weekly': {
+      const days = task.repeatDays?.length ? task.repeatDays : [(start.getDay() + 6) % 7];
       const curMon0 = (cur.getDay() + 6) % 7;
       return days.includes(curMon0);
     }
-    case "monthly": {
+    case 'monthly': {
       const sd = start.getDate();
       const last = new Date(cur.getFullYear(), cur.getMonth() + 1, 0).getDate();
       const eff = Math.min(sd, last);
       return cur.getDate() === eff;
     }
-    case "yearly":
-      return (
-        cur.getDate() === start.getDate() && cur.getMonth() === start.getMonth()
-      );
+    case 'yearly':
+      return cur.getDate() === start.getDate() && cur.getMonth() === start.getMonth();
   }
 };
 
@@ -74,15 +71,8 @@ const Ring: React.FC<{ progress: number; size?: number; stroke?: number }> = ({
   const C = 2 * Math.PI * r;
   const off = C * (1 - p);
   return (
-    <svg width={size} height={size} style={{ display: "block" }}>
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={r}
-        fill="none"
-        stroke="#3e2b1d"
-        strokeWidth={stroke}
-      />
+    <svg width={size} height={size} style={{ display: 'block' }}>
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#3e2b1d" strokeWidth={stroke} />
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -108,16 +98,15 @@ const EndDateStepper: React.FC<{
   const [m, setM] = React.useState(init.getMonth() + 1);
   const [d, setD] = React.useState(init.getDate());
 
-  const daysInMonth = (yy: number, mm1to12: number) =>
-    new Date(yy, mm1to12, 0).getDate();
+  const daysInMonth = (yy: number, mm1to12: number) => new Date(yy, mm1to12, 0).getDate();
   React.useEffect(() => {
     const last = daysInMonth(y, m);
     if (d > last) setD(last);
-  }, [y, m]);
-  React.useEffect(() => {
-    const pad2 = (n: number) => String(n).padStart(2, "0");
-    onChange(`${y}-${pad2(m)}-${pad2(d)}`);
   }, [y, m, d]);
+  React.useEffect(() => {
+    const pad2 = (n: number) => String(n).padStart(2, '0');
+    onChange(`${y}-${pad2(m)}-${pad2(d)}`);
+  }, [y, m, d, onChange]);
 
   return (
     <div className="tm-selects">
@@ -150,16 +139,10 @@ const EndDateStepper: React.FC<{
       {/* 日 */}
       <div className="tm-step">
         <div className="updown-buttons">
-          <button
-            className="up"
-            onClick={() => setD(d === daysInMonth(y, m) ? 1 : d + 1)}
-          >
+          <button className="up" onClick={() => setD(d === daysInMonth(y, m) ? 1 : d + 1)}>
             <FaChevronUp />
           </button>
-          <button
-            className="down"
-            onClick={() => setD(d === 1 ? daysInMonth(y, m) : d - 1)}
-          >
+          <button className="down" onClick={() => setD(d === 1 ? daysInMonth(y, m) : d - 1)}>
             <FaChevronDown />
           </button>
         </div>
@@ -171,13 +154,9 @@ const EndDateStepper: React.FC<{
 
 const App: React.FC = () => {
   //  YEAR / WEEK のユーザー入力テキスト
-  const [yearGoal, setYearGoal] = useState(
-    localStorage.getItem("yearGoal") || ""
-  );
-  const [weekGoal, setWeekGoal] = useState(
-    localStorage.getItem("weekGoal") || ""
-  );
-  const [editing, setEditing] = useState<"year" | "week" | null>(null);
+  const [yearGoal, setYearGoal] = useState(localStorage.getItem('yearGoal') || '');
+  const [weekGoal, setWeekGoal] = useState(localStorage.getItem('weekGoal') || '');
+  const [editing, setEditing] = useState<'year' | 'week' | null>(null);
   const [value, setValue] = useState<Date | null>(new Date());
   const [currentCardDate, setCurrentCardDate] = useState(new Date());
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -188,22 +167,22 @@ const App: React.FC = () => {
     return newDate;
   };
   useEffect(() => {
-    localStorage.setItem("yearGoal", yearGoal);
+    localStorage.setItem('yearGoal', yearGoal);
   }, [yearGoal]);
   useEffect(() => {
-    localStorage.setItem("weekGoal", weekGoal);
+    localStorage.setItem('weekGoal', weekGoal);
   }, [weekGoal]);
 
   // 読み込み
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("todoapp:v1");
+      const raw = localStorage.getItem('todoapp:v1');
       if (raw) {
         const parsed = JSON.parse(raw) as Task[];
         setTasks(parsed);
       }
     } catch (e) {
-      console.error("failed to load tasks:", e);
+      console.error('failed to load tasks:', e);
     } finally {
       setLoaded(true);
     }
@@ -213,9 +192,9 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!loaded) return;
     try {
-      localStorage.setItem("todoapp:v1", JSON.stringify(tasks));
+      localStorage.setItem('todoapp:v1', JSON.stringify(tasks));
     } catch (e) {
-      console.error("failed to save tasks:", e);
+      console.error('failed to save tasks:', e);
     }
   }, [loaded, tasks]);
 
@@ -256,9 +235,13 @@ const App: React.FC = () => {
       prev.map((t) => {
         if (t.id !== taskId) return t;
         const set = new Set(t.completedDates);
-        set.has(ymd) ? set.delete(ymd) : set.add(ymd);
+        if (set.has(ymd)) {
+          set.delete(ymd);
+        } else {
+          set.add(ymd);
+        }
         return { ...t, completedDates: Array.from(set) };
-      })
+      }),
     );
   };
 
@@ -269,9 +252,9 @@ const App: React.FC = () => {
       ...prev,
       {
         id,
-        title: "新しい項目",
+        title: '新しい項目',
         date: ymd,
-        repeat: "none",
+        repeat: 'none',
         completedDates: [],
       },
     ]);
@@ -284,9 +267,7 @@ const App: React.FC = () => {
   // 編集保存
   const saveEditor = (updated: Partial<Task>, opts?: { close?: boolean }) => {
     if (!editingId) return;
-    setTasks((prev) =>
-      prev.map((t) => (t.id === editingId ? { ...t, ...updated } : t))
-    );
+    setTasks((prev) => prev.map((t) => (t.id === editingId ? { ...t, ...updated } : t)));
     if (opts?.close) {
       setEditorOpen(false);
     }
@@ -315,24 +296,26 @@ const App: React.FC = () => {
               <div className="goal-label">YEAR </div>
               <button
                 className="edit"
-                onClick={() => setEditing(editing === "year" ? null : "year")}
+                onClick={() => setEditing(editing === 'year' ? null : 'year')}
                 aria-label="Edit YEAR"
                 title="Edit YEAR"
               >
                 <RiPencilFill />
               </button>
             </div>
-            {editing === "year" ? (
+            {editing === 'year' ? (
               <input
                 className="goal-input"
                 autoFocus
                 value={yearGoal}
                 onChange={(e) => setYearGoal(e.target.value)}
                 onBlur={() => setEditing(null)}
-                onKeyDown={(e) => e.key === "Enter" && setEditing(null)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') setEditing(null);
+                }}
               />
             ) : (
-              <div className="goal-text" onClick={() => setEditing("year")}>
+              <div className="goal-text" onClick={() => setEditing('year')}>
                 {yearGoal}
               </div>
             )}
@@ -344,24 +327,26 @@ const App: React.FC = () => {
               <div className="goal-label">WEEK </div>
               <button
                 className="edit"
-                onClick={() => setEditing(editing === "week" ? null : "week")}
+                onClick={() => setEditing(editing === 'week' ? null : 'week')}
                 aria-label="Edit WEEK"
                 title="Edit WEEK"
               >
                 <RiPencilFill />
               </button>
             </div>
-            {editing === "week" ? (
+            {editing === 'week' ? (
               <input
                 className="goal-input"
                 autoFocus
                 value={weekGoal}
                 onChange={(e) => setWeekGoal(e.target.value)}
                 onBlur={() => setEditing(null)}
-                onKeyDown={(e) => e.key === "Enter" && setEditing(null)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') setEditing(null);
+                }}
               />
             ) : (
-              <div className="goal-text" onClick={() => setEditing("week")}>
+              <div className="goal-text" onClick={() => setEditing('week')}>
                 {weekGoal}
               </div>
             )}
@@ -371,14 +356,10 @@ const App: React.FC = () => {
             <div className="comp-title">Completion Rate</div>
             <div className="comp-row">
               <div className="comp-month">
-                {currentCardDate.toLocaleString("en-US", { month: "long" })}
+                {currentCardDate.toLocaleString('en-US', { month: 'long' })}
               </div>
               <div className="comp-ring">
-                <Ring
-                  progress={getMonthlyProgress(new Date())}
-                  size={180}
-                  stroke={20}
-                />
+                <Ring progress={getMonthlyProgress(new Date())} size={180} stroke={20} />
                 <div className="comp-percent">
                   {Math.round(getMonthlyProgress(new Date()) * 100)}%
                 </div>
@@ -396,8 +377,8 @@ const App: React.FC = () => {
               <MdNavigateBefore />
             </button>
             <div className="card-title">
-              {currentCardDate.toLocaleString("en-US", { month: "long" })},
-              &nbsp;{currentCardDate.getDate()}
+              {currentCardDate.toLocaleString('en-US', { month: 'long' })}, &nbsp;
+              {currentCardDate.getDate()}
             </div>
             <button
               className="arrow"
@@ -445,7 +426,7 @@ const App: React.FC = () => {
         <Calendar
           locale="en"
           showFixedNumberOfWeeks={false} // 週の数を固定表示
-          formatDay={() => ""}
+          formatDay={() => ''}
           onChange={(date) => setValue(date as Date)} // カレンダーのクリック時に呼ばれる
           onClickDay={(d) => {
             setDetailOpen(true);
@@ -455,9 +436,9 @@ const App: React.FC = () => {
           tileContent={({ date }) => (
             <div
               style={{
-                height: "116px",
-                textAlign: "start",
-                position: "relative",
+                height: '116px',
+                textAlign: 'start',
+                position: 'relative',
               }}
             >
               <span className="rc-day-num">{date.getDate()}</span>
@@ -475,23 +456,19 @@ const App: React.FC = () => {
             <div className="card-header">
               <button
                 className="arrow"
-                onClick={() =>
-                  setValue(addDays(new Date(value ?? new Date()), -1))
-                }
+                onClick={() => setValue(addDays(new Date(value ?? new Date()), -1))}
               >
                 <MdNavigateBefore />
               </button>
               <h2 className="card-title">
-                {new Date(value ?? new Date()).toLocaleString("en-US", {
-                  month: "long",
+                {new Date(value ?? new Date()).toLocaleString('en-US', {
+                  month: 'long',
                 })}
                 , {new Date(value ?? new Date()).getDate()}
               </h2>
               <button
                 className="arrow"
-                onClick={() =>
-                  setValue(addDays(new Date(value ?? new Date()), +1))
-                }
+                onClick={() => setValue(addDays(new Date(value ?? new Date()), +1))}
               >
                 <MdNavigateNext />
               </button>
@@ -526,19 +503,12 @@ const App: React.FC = () => {
               )}
             </ul>
 
-            <button
-              className="add"
-              onClick={() => addTaskFor(fmt(value ?? new Date()))}
-            >
+            <button className="add" onClick={() => addTaskFor(fmt(value ?? new Date()))}>
               ＋ 追加する
             </button>
 
             <div className="day-progress">
-              <Ring
-                progress={getProgressFor(fmt(value ?? new Date()))}
-                size={90}
-                stroke={10}
-              />
+              <Ring progress={getProgressFor(fmt(value ?? new Date()))} size={90} stroke={10} />
               <div className="day-progress-num">
                 {Math.round(getProgressFor(fmt(value ?? new Date())) * 100)}%
               </div>
@@ -567,41 +537,31 @@ const App: React.FC = () => {
                   <div className="tm-row">
                     <div className="tm-label">繰り返し</div>
                     <div className="tm-repeat">
-                      {(
-                        [
-                          "none",
-                          "daily",
-                          "weekly",
-                          "monthly",
-                          "yearly",
-                        ] as Repeat[]
-                      ).map((r) => (
+                      {(['none', 'daily', 'weekly', 'monthly', 'yearly'] as Repeat[]).map((r) => (
                         <button
                           type="button"
                           key={r}
-                          className={`tm-chip ${
-                            t.repeat === r ? "active" : ""
-                          }`}
+                          className={`tm-chip ${t.repeat === r ? 'active' : ''}`}
                           onClick={(e) => {
                             e.stopPropagation();
                             setRepeat(r);
                           }}
                         >
-                          {r === "none"
-                            ? "なし"
-                            : r === "daily"
-                            ? "毎日"
-                            : r === "weekly"
-                            ? "毎週"
-                            : r === "monthly"
-                            ? "毎月"
-                            : "毎年"}
+                          {r === 'none'
+                            ? 'なし'
+                            : r === 'daily'
+                              ? '毎日'
+                              : r === 'weekly'
+                                ? '毎週'
+                                : r === 'monthly'
+                                  ? '毎月'
+                                  : '毎年'}
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  {t.repeat === "daily" && (
+                  {t.repeat === 'daily' && (
                     <div className="tm-row">
                       <div className="tm-num-wrap">
                         <div className="updown-buttons">
@@ -610,10 +570,7 @@ const App: React.FC = () => {
                             className="up"
                             onClick={() =>
                               upd({
-                                repeatInterval: Math.max(
-                                  1,
-                                  (t.repeatInterval ?? 1) - 1
-                                ),
+                                repeatInterval: Math.max(1, (t.repeatInterval ?? 1) - 1),
                               })
                             }
                           >
@@ -624,10 +581,7 @@ const App: React.FC = () => {
                             className="down"
                             onClick={() =>
                               upd({
-                                repeatInterval: Math.max(
-                                  1,
-                                  (t.repeatInterval ?? 1) + 1
-                                ),
+                                repeatInterval: Math.max(1, (t.repeatInterval ?? 1) + 1),
                               })
                             }
                           >
@@ -636,43 +590,43 @@ const App: React.FC = () => {
                         </div>
 
                         <div className="tm-num-text">
-                          <span className="tm-num-display">
-                            {t.repeatInterval ?? 1}
-                          </span>
+                          <span className="tm-num-display">{t.repeatInterval ?? 1}</span>
                           <span>日ごとに繰り返す</span>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {t.repeat === "weekly" && (
+                  {t.repeat === 'weekly' && (
                     <div className="tm-row">
                       <div className="tm-weekdays">
-                        {["月", "火", "水", "木", "金", "土", "日"].map(
-                          (lab, idx) => {
-                            const has = t.repeatDays?.includes(idx);
-                            return (
-                              <button
-                                type="button"
-                                key={idx}
-                                className={`tm-wd ${has ? "active" : ""}`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const cur = new Set(t.repeatDays ?? []);
-                                  has ? cur.delete(idx) : cur.add(idx);
-                                  upd({ repeatDays: Array.from(cur).sort() });
-                                }}
-                              >
-                                {lab}
-                              </button>
-                            );
-                          }
-                        )}
+                        {['月', '火', '水', '木', '金', '土', '日'].map((lab, idx) => {
+                          const has = t.repeatDays?.includes(idx);
+                          return (
+                            <button
+                              type="button"
+                              key={idx}
+                              className={`tm-wd ${has ? 'active' : ''}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const cur = new Set(t.repeatDays ?? []);
+                                if (has) {
+                                  cur.delete(idx);
+                                } else {
+                                  cur.add(idx);
+                                }
+                                upd({ repeatDays: Array.from(cur).sort() });
+                              }}
+                            >
+                              {lab}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
 
-                  {t.repeat !== "none" && (
+                  {t.repeat !== 'none' && (
                     <div className="tm-row tm-end">
                       <label className="chk tm-end-check">
                         <input
@@ -680,17 +634,13 @@ const App: React.FC = () => {
                           checked={!!t.repeatEndDate}
                           onChange={(e) => {
                             upd({
-                              repeatEndDate: e.target.checked
-                                ? fmt(new Date())
-                                : undefined,
+                              repeatEndDate: e.target.checked ? fmt(new Date()) : undefined,
                             });
                           }}
                         />
                         <span className="cbx" aria-hidden>
                           <RiCheckboxBlankLine className="cbx-box" />
-                          {!!t.repeatEndDate && (
-                            <RiCheckFill className="cbx-check" />
-                          )}
+                          {!!t.repeatEndDate && <RiCheckFill className="cbx-check" />}
                         </span>
                         <span className="title">繰り返し終了日を設定する</span>
                       </label>

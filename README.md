@@ -5,6 +5,14 @@
   <small>カレンダー連動・進捗リング搭載のToDoアプリ</small>
 </p>
 
+<div align="center">
+
+[![CI/CD Pipeline](https://github.com/your-username/ToDo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/your-username/ToDo/actions/workflows/ci-cd.yml)
+[![Security Audit](https://github.com/your-username/ToDo/actions/workflows/security.yml/badge.svg)](https://github.com/your-username/ToDo/actions/workflows/security.yml)
+[![GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://your-username.github.io/ToDo/)
+
+</div>
+
 <h2 align="start">✨ 主な機能（完成 & 予定）</h2>
 
 <li>✅ タスクの CRUD：作成／編集（タイトル・繰り返し・終了日）／削除</li>

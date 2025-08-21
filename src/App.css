@@ -71,7 +71,7 @@ body {
 }
 /*月・年の表示*/
 .react-calendar__navigation__label {
-  font-family: "Jersey 15", system-ui, sans-serif !important;
+  font-family: 'Jersey 15', system-ui, sans-serif !important;
   font-size: 25px !important;
   pointer-events: none !important;
 }
@@ -193,7 +193,7 @@ body {
   line-height: 1.5;
   height: 1.4em;
   display: block;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
 }
 
 .goal-text {
@@ -201,7 +201,7 @@ body {
   padding: 0;
   line-height: 1.4;
   display: block;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
 }
 /* == Completion Rate == */
 .completion {
@@ -209,7 +209,7 @@ body {
 }
 
 .comp-title {
-  font-family: "Jersey 15", system-ui, sans-serif;
+  font-family: 'Jersey 15', system-ui, sans-serif;
   font-size: 36px;
   line-height: 1;
   margin-bottom: 8px;
@@ -222,7 +222,7 @@ body {
 }
 
 .comp-month {
-  font-family: "Jersey 15", system-ui, sans-serif;
+  font-family: 'Jersey 15', system-ui, sans-serif;
   font-size: 40px;
   min-width: 120px;
 }
@@ -238,7 +238,7 @@ body {
 
 .comp-percent {
   position: absolute;
-  font-family: "Jersey 15", system-ui, sans-serif;
+  font-family: 'Jersey 15', system-ui, sans-serif;
   font-size: 44px;
   font-weight: 700;
 }
@@ -299,7 +299,7 @@ body {
   display: none;
 }
 .chk .title {
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
 }
 
@@ -371,7 +371,7 @@ body {
 }
 .day-empty {
   opacity: 0.7;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14;
 }
 .add {
@@ -381,7 +381,7 @@ body {
   color: #fff;
   cursor: pointer;
   text-align: left;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
 }
 .day-progress {
@@ -430,7 +430,7 @@ body {
   color: #fff;
   border-radius: 4px;
   font-size: 14px;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
 }
 .tm-row {
   margin-top: 14px;
@@ -442,14 +442,14 @@ body {
 }
 .tm-label {
   min-width: 72px;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
 }
 .tm-repeat {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
   justify-content: space-between;
   width: 100%;
@@ -505,7 +505,7 @@ body {
 
 .tm-label-text {
   color: #fff;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
 }
 .tm-num {
@@ -524,7 +524,7 @@ body {
 .tm-wd {
   width: 36px;
   height: 36px;
-  font-family: "DotGothic16", sans-serif;
+  font-family: 'DotGothic16', sans-serif;
   font-size: 14px;
   border: 1px solid #fff;
   border-radius: 18px;

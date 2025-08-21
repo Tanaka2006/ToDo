@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "Jersey 15";
-  src: url("/fonts/Jersey15-Regular.ttf") format("truetype");
+  font-family: 'Jersey 15';
+  src: url('/fonts/Jersey15-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  font-family: "Jersey 15", system-ui, sans-serif;
+  font-family: 'Jersey 15', system-ui, sans-serif;
   line-height: 1.5;
   color-scheme: light dark;
   -webkit-font-smoothing: antialiased;

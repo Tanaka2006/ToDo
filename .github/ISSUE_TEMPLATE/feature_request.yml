@@ -1,0 +1,52 @@
+name: ✨ Feature Request
+description: 新機能の提案
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        新機能の提案をありがとうございます！
+        以下のフォームに記入して、アイデアを教えてください。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: ✨ 機能の概要
+      description: 提案する機能について簡潔に説明してください
+      placeholder: 機能の概要...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 🎯 動機・理由
+      description: なぜこの機能が必要なのか、どんな問題を解決するのかを説明してください
+      placeholder: この機能が必要な理由...
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed-description
+    attributes:
+      label: 📝 詳細な説明
+      description: 機能の詳細な動作や仕様について説明してください
+      placeholder: 機能の詳細な説明...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 代替案
+      description: 検討した他の解決方法があれば記載してください
+      placeholder: 代替案について...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 追加情報
+      description: その他、役立つ情報があれば記載してください（モックアップ、参考リンクなど）
+      placeholder: 追加の情報...
