@@ -7,9 +7,9 @@
 
 <div align="center">
 
-[![CI/CD Pipeline](https://github.com/your-username/ToDo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/your-username/ToDo/actions/workflows/ci-cd.yml)
-[![Security Audit](https://github.com/your-username/ToDo/actions/workflows/security.yml/badge.svg)](https://github.com/your-username/ToDo/actions/workflows/security.yml)
-[![GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://your-username.github.io/ToDo/)
+[![CI/CD Pipeline](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml)
+[![Security Audit](https://github.com/Tanaka2006/ToDo/actions/workflows/security.yml/badge.svg)](https://github.com/Tanaka2006/ToDo/actions/workflows/security.yml)
+[![GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://Tanaka2006.github.io/ToDo/)
 
 </div>
 
@@ -78,6 +78,14 @@ yearly：開始日の“月/日”で毎年発生
       <td>永続化</td>
       <td><code>localStorage</code>（キー: <code>todoapp:v1</code>）</td>
     </tr>
+    <tr>
+      <td>コード品質</td>
+      <td><strong>ESLint</strong> + <strong>Prettier</strong> で自動フォーマット・静的解析</td>
+    </tr>
+    <tr>
+      <td>CI/CD</td>
+      <td><strong>GitHub Actions</strong> で自動テスト・ビルド・デプロイ</td>
+    </tr>
     
   </tbody>
 </table>
@@ -137,6 +145,285 @@ completedDates: string[]; // 完了した日付（YYYY-MM-DD）<br>
 │  ├─ App.css  # レイアウト/モーダル等
 │  └─ index.css  # ベーススタイル/フォント
 ├─ public/
-└─ fonts/
-   └─ Jersey15-Regular.ttf
+│  └─ fonts/
+│     └─ Jersey15-Regular.ttf
+├─ .github/
+│  ├─ workflows/
+│  │  ├─ ci-cd.yml       # CI/CDパイプライン
+│  │  └─ security.yml    # セキュリティ監査
+│  └─ dependabot.yml     # 依存関係自動更新
+├─ .vscode/
+│  └─ settings.json      # VS Code設定（フォーマット・Lint）
+├─ .prettierrc          # Prettier設定
+├─ eslint.config.js     # ESLint設定
+└─ package.json
 ```
+
+<h2 align="start">🚀 開発環境</h2>
+
+<details>
+<summary><strong>💻 Code Formatter・Linter</strong></summary>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">ツール</th>
+      <th align="left">役割</th>
+      <th align="left">設定ファイル</th>
+      <th align="left">実行コマンド</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ESLint</strong></td>
+      <td>TypeScript・React対応の静的解析<br>コードの問題を自動検出</td>
+      <td><code>eslint.config.js</code></td>
+      <td><code>npm run lint</code></td>
+    </tr>
+    <tr>
+      <td><strong>Prettier</strong></td>
+      <td>コード自動フォーマット<br>統一されたコードスタイル</td>
+      <td><code>.prettierrc</code></td>
+      <td><code>npm run format</code></td>
+    </tr>
+    <tr>
+      <td><strong>VS Code設定</strong></td>
+      <td>保存時自動フォーマット・Lint修正<br>開発効率の向上</td>
+      <td><code>.vscode/settings.json</code></td>
+      <td>自動実行（保存時）</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+<p>💡 <strong>自動化のメリット</strong></p>
+<ul>
+  <li>✅ コードスタイルの統一</li>
+  <li>✅ バグの早期発見</li>
+  <li>✅ コードレビューの品質向上</li>
+  <li>✅ 開発効率の向上</li>
+</ul>
+</blockquote>
+
+</details>
+
+<details>
+<summary><strong>🔄 CI/CD（GitHub Actions）</strong></summary>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">ワークフロー</th>
+      <th align="left">トリガー</th>
+      <th align="left">実行内容</th>
+      <th align="left">設定ファイル</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CI/CDパイプライン</strong></td>
+      <td>
+        • Push (main, develop)<br>
+        • Pull Request (main)
+      </td>
+      <td>
+        1️⃣ コード品質チェック（ESLint・Prettier）<br>
+        2️⃣ ビルドテスト（TypeScript・Vite）<br>
+        3️⃣ 自動デプロイ（GitHub Pages）
+      </td>
+      <td><code>.github/workflows/ci-cd.yml</code></td>
+    </tr>
+    <tr>
+      <td><strong>セキュリティ監査</strong></td>
+      <td>
+        • 週次スケジュール（月曜 09:00）<br>
+        • package.json変更時
+      </td>
+      <td>
+        🔍 npm audit実行<br>
+        📊 脆弱性レポート生成<br>
+        📦 依存関係チェック
+      </td>
+      <td><code>.github/workflows/security.yml</code></td>
+    </tr>
+    <tr>
+      <td><strong>依存関係自動更新</strong></td>
+      <td>週次スケジュール（月曜 09:00）</td>
+      <td>
+        🔄 npm依存関係の更新PR作成<br>
+        🔄 GitHub Actions更新PR作成
+      </td>
+      <td><code>.github/dependabot.yml</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>📊 ワークフロー実行状況</h4>
+<div align="center">
+
+[![CI/CD Pipeline](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml)
+[![Security Audit](https://github.com/Tanaka2006/ToDo/actions/workflows/security.yml/badge.svg)](https://github.com/Tanaka2006/ToDo/actions/workflows/security.yml)
+
+</div>
+
+<blockquote>
+<p>🚀 <strong>CI/CDの効果</strong></p>
+<ul>
+  <li>✅ コードの品質保証</li>
+  <li>✅ デプロイの自動化</li>
+  <li>✅ セキュリティリスクの早期発見</li>
+  <li>✅ 依存関係の最新化</li>
+</ul>
+</blockquote>
+
+</details>
+
+<details>
+<summary><strong>⚡ 開発コマンド</strong></summary>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">分類</th>
+      <th align="left">コマンド</th>
+      <th align="left">説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3"><strong>開発</strong></td>
+      <td><code>npm run dev</code></td>
+      <td>🔥 開発サーバー起動（ホットリロード付き）</td>
+    </tr>
+    <tr>
+      <td><code>npm run build</code></td>
+      <td>🏗️ プロダクションビルド</td>
+    </tr>
+    <tr>
+      <td><code>npm run preview</code></td>
+      <td>👀 ビルド結果をプレビュー</td>
+    </tr>
+    <tr>
+      <td rowspan="4"><strong>コード品質</strong></td>
+      <td><code>npm run lint</code></td>
+      <td>🔍 ESLintによるコードチェック</td>
+    </tr>
+    <tr>
+      <td><code>npm run lint:fix</code></td>
+      <td>🔧 ESLintによる自動修正</td>
+    </tr>
+    <tr>
+      <td><code>npm run format</code></td>
+      <td>✨ Prettierによるフォーマット</td>
+    </tr>
+    <tr>
+      <td><code>npm run format:check</code></td>
+      <td>👁️ フォーマットチェック（修正なし）</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><strong>統合</strong></td>
+      <td><code>npm run ci</code></td>
+      <td>🔄 CI環境と同じチェック実行</td>
+    </tr>
+    <tr>
+      <td><code>npm run deploy</code></td>
+      <td>🚀 手動デプロイ（gh-pages）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>📋 推奨開発フロー</h4>
+<ol>
+  <li><code>npm run dev</code> で開発サーバー起動</li>
+  <li>コード編集（VS Codeで保存時自動フォーマット）</li>
+  <li><code>npm run ci</code> でローカルチェック</li>
+  <li>Git commit & push（CI/CDが自動実行）</li>
+</ol>
+
+</details>
+
+<details>
+<summary><strong>☁️ クラウドデプロイ</strong></summary>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">サービス</th>
+      <th align="left">URL</th>
+      <th align="left">デプロイ方法</th>
+      <th align="left">特徴</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>GitHub Pages</strong></td>
+      <td><a href="https://Tanaka2006.github.io/ToDo/" target="_blank">🔗 Live Demo</a></td>
+      <td>GitHub Actions自動デプロイ</td>
+      <td>✅ 無料<br>✅ 自動SSL<br>✅ Git連携</td>
+    </tr>
+    <tr>
+      <td><strong>Vercel</strong></td>
+      <td><em>設定後に表示</em></td>
+      <td>GitHub連携 or CLI</td>
+      <td>⚡ 高速<br>🎯 React最適化<br>🔄 プレビューURL</td>
+    </tr>
+    <tr>
+      <td><strong>Netlify</strong></td>
+      <td><em>設定後に表示</em></td>
+      <td>ドラッグ&ドロップ or Git連携</td>
+      <td>🛠️ 豊富な機能<br>📋 フォーム処理<br>⚡ CDN</td>
+    </tr>
+    <tr>
+      <td><strong>Firebase Hosting</strong></td>
+      <td><em>設定後に表示</em></td>
+      <td>Firebase CLI</td>
+      <td>🌐 グローバルCDN<br>🔒 無料SSL<br>📊 分析機能</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>🎯 推奨デプロイ手順（Vercel）</h4>
+<ol>
+  <li><a href="https://vercel.com/" target="_blank">Vercel</a> でアカウント作成</li>
+  <li>「Import Git Repository」でGitHubリポジトリを選択</li>
+  <li>フレームワーク「Vite」を選択（自動検出）</li>
+  <li>「Deploy」をクリック → 自動デプロイ開始</li>
+  <li>カスタムドメイン設定（オプション）</li>
+</ol>
+
+<h4>⚙️ 手動デプロイコマンド</h4>
+
+```bash
+# Netlify CLI
+npm install -g netlify-cli
+npm run build
+netlify deploy --prod --dir=dist
+
+# Firebase CLI
+npm install -g firebase-tools
+npm run build
+firebase login
+firebase init hosting
+firebase deploy
+
+# Vercel CLI
+npm install -g vercel
+npm run build
+vercel --prod
+```
+
+<blockquote>
+<p>💡 <strong>デプロイサービス比較</strong></p>
+<ul>
+  <li>🆓 <strong>無料で始めたい</strong> → GitHub Pages / Vercel</li>
+  <li>⚡ <strong>高速・最適化重視</strong> → Vercel</li>
+  <li>🛠️ <strong>機能豊富</strong> → Netlify</li>
+  <li>🏢 <strong>企業・スケール重視</strong> → AWS / Firebase</li>
+</ul>
+</blockquote>
+
+</details>

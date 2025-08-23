@@ -1,36 +1,34 @@
 version: 2
 updates:
-  # npm依存関係の更新
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Asia/Tokyo"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Asia/Tokyo'
     open-pull-requests-limit: 10
     reviewers:
-      - "your-github-username"  # ここに自分のGitHubユーザー名を入力
+      - 'Tanaka2006'
     assignees:
-      - "your-github-username"  # ここに自分のGitHubユーザー名を入力
+      - 'Tanaka2006'
     commit-message:
-      prefix: "deps"
-      include: "scope"
+      prefix: 'deps'
+      include: 'scope'
     labels:
-      - "dependencies"
-      - "auto-update"
-    
-  # GitHub Actionsの更新
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      - 'dependencies'
+      - 'auto-update'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Asia/Tokyo"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Asia/Tokyo'
     commit-message:
-      prefix: "ci"
-      include: "scope"
+      prefix: 'ci'
+      include: 'scope'
     labels:
-      - "github-actions"
-      - "auto-update"
+      - 'github-actions'
+      - 'auto-update'
