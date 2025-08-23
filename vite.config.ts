@@ -4,12 +4,13 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/ToDo/' : '/',
+  // GitHub Pages用: `/ToDo/`、Vercel用: `/`
+  base: process.env.VERCEL ? '/' : process.env.NODE_ENV === 'production' ? '/ToDo/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    // GitHub Pagesでのアセット読み込み最適化
+    // アセット読み込み最適化
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[name].[hash][extname]',

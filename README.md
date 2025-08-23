@@ -464,6 +464,44 @@ vercel --prod
 
 ---
 
+## ⚡ Vercel デプロイ設定
+
+このプロジェクトは**GitHub Actions**で自動的にVercelにもデプロイされます。
+
+### 📋 設定手順
+
+1. **Vercelプロジェクト作成**
+   - [vercel.com](https://vercel.com) でGitHubリポジトリをインポート
+   - フレームワークは「Vite」を選択
+   - デフォルト設定でデプロイ
+
+2. **GitHubシークレット設定**
+   - リポジトリ Settings → Secrets and variables → Actions
+   - 以下のシークレットを追加：
+     - `VERCEL_TOKEN`: Vercelアカウント設定で生成
+     - `VERCEL_ORG_ID`: Vercelアカウント設定のYour ID
+     - `VERCEL_PROJECT_ID`: Vercelプロジェクト設定のProject ID
+
+3. **自動デプロイ**
+   - `main`ブランチにプッシュすると自動でVercelにもデプロイ
+   - GitHub Actionsで並行処理：
+     - GitHub Pages（GitHub提供の無料ホスティング）
+     - Vercel（高性能・高速なホスティング）
+
+<blockquote>
+<p>⚡ <strong>Vercelの利点</strong></p>
+<ul>
+  <li>🚀 超高速なデプロイ・ビルド</li>
+  <li>🌐 グローバルCDN</li>
+  <li>📱 プレビューデプロイ（PR毎）</li>
+  <li>📊 詳細なアナリティクス</li>
+</ul>
+</blockquote>
+
+> 📖 **詳細な設定手順**: [docs/vercel-setup.md](docs/vercel-setup.md)
+
+---
+
 ## ✅ CI/CD セットアップ完了状況
 
 <table>

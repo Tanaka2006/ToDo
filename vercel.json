@@ -5,6 +5,9 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm ci",
+  "env": {
+    "VERCEL": "1"
+  },
   "routes": [
     {
       "handle": "filesystem"
