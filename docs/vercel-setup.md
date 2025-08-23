@@ -43,11 +43,11 @@ GitHubリポジトリで以下を設定：
 2. 左メニュー「Secrets and variables」→ 「Actions」
 3. 「New repository secret」で以下を追加：
 
-| Name                | Value                     | 説明           |
-| ------------------- | ------------------------- | -------------- |
-| `VERCEL_TOKEN`      | 手順2で取得したトークン   | Vercel API認証 |
-| `VERCEL_ORG_ID`     | 手順2で取得したOrg ID     | 組織ID         |
-| `VERCEL_PROJECT_ID` | 手順2で取得したProject ID | プロジェクトID |
+| Name           | Value                     | 説明           |
+| -------------- | ------------------------- | -------------- |
+| `VERCEL_TOKEN` | 手順2で取得したトークン   | Vercel API認証 |
+| `ORG_ID`       | 手順2で取得したOrg ID     | 組織ID         |
+| `PROJECT_ID`   | 手順2で取得したProject ID | プロジェクトID |
 
 ## 🔄 4. 自動デプロイの確認
 
