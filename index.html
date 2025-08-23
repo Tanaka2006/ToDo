@@ -8,6 +8,16 @@
     <title>ToDo</title>
   </head>
   <body>
+    <script>
+      // GitHub PagesでSPAをサポートするためのリダイレクト処理
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

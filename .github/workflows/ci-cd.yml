@@ -70,10 +70,15 @@ jobs:
       pages: write
       id-token: write
 
+    # Environment for GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     # Concurrency: 同時デプロイを防止
     concurrency:
       group: 'pages'
-      cancel-in-progress: true
+      cancel-in-progress: false
 
     steps:
       - name: Checkout code

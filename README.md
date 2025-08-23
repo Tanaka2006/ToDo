@@ -430,6 +430,40 @@ vercel --prod
 
 ---
 
+## 🌐 GitHub Pages デプロイ設定
+
+このプロジェクトは**GitHub Actions**で自動的にGitHub Pagesにデプロイされます。
+
+### 📋 設定手順
+
+1. **GitHubリポジトリの設定**
+   - リポジトリの `Settings` → `Pages` に移動
+   - **Source** を `GitHub Actions` に設定
+   - **Custom domain** は必要に応じて設定
+
+2. **自動デプロイ**
+   - `main`ブランチにプッシュすると自動でビルド・デプロイ
+   - GitHub Actionsで以下の処理を実行：
+     - コード品質チェック（ESLint・Prettier）
+     - TypeScriptビルド
+     - Viteビルド
+     - GitHub Pagesへの自動デプロイ
+
+3. **デプロイ状況の確認**
+   - [Actions タブ](https://github.com/Tanaka2006/ToDo/actions) でワークフロー実行状況を確認
+   - 成功すると [GitHub Pages](https://Tanaka2006.github.io/ToDo/) でアプリにアクセス可能
+
+<blockquote>
+<p>🔧 <strong>設定のポイント</strong></p>
+<ul>
+  <li>📦 <code>vite.config.ts</code> でbase pathを <code>/ToDo/</code> に設定済み</li>
+  <li>🔀 SPAルーティング対応のため <code>404.html</code> リダイレクト設定済み</li>
+  <li>🏗️ GitHub Actions権限・Environment設定済み</li>
+</ul>
+</blockquote>
+
+---
+
 ## ✅ CI/CD セットアップ完了状況
 
 <table>
