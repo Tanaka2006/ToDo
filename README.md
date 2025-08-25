@@ -149,7 +149,9 @@ completedDates: string[]; // 完了した日付（YYYY-MM-DD）<br>
 │     └─ Jersey15-Regular.ttf
 ├─ .github/
 │  ├─ workflows/
-│  │  ├─ ci-cd.yml       # CI/CDパイプライン
+│  │  ├─ ci-cd.yml       # CI/CDパイプライン（品質チェック・ビルド）
+│  │  ├─ pages.yml       # GitHub Pagesデプロイ
+│  │  ├─ vercel.yml      # Vercelデプロイ
 │  │  └─ security.yml    # セキュリティ監査
 │  └─ dependabot.yml     # 依存関係自動更新
 ├─ .vscode/
@@ -231,9 +233,33 @@ completedDates: string[]; // 完了した日付（YYYY-MM-DD）<br>
       <td>
         1️⃣ コード品質チェック（ESLint・Prettier）<br>
         2️⃣ ビルドテスト（TypeScript・Vite）<br>
-        3️⃣ 自動デプロイ（GitHub Pages）
+        3️⃣ アーティファクト生成
       </td>
       <td><code>.github/workflows/ci-cd.yml</code></td>
+    </tr>
+    <tr>
+      <td><strong>GitHub Pagesデプロイ</strong></td>
+      <td>
+        • Push (main)<br>
+        • 手動実行
+      </td>
+      <td>
+        🌐 GitHub Pagesへの自動デプロイ<br>
+        📦 Static Site Hosting
+      </td>
+      <td><code>.github/workflows/pages.yml</code></td>
+    </tr>
+    <tr>
+      <td><strong>Vercelデプロイ</strong></td>
+      <td>
+        • Push (main)<br>
+        • 手動実行
+      </td>
+      <td>
+        ⚡ Vercelへの高速デプロイ<br>
+        🌍 Global CDN配信
+      </td>
+      <td><code>.github/workflows/vercel.yml</code></td>
     </tr>
     <tr>
       <td><strong>セキュリティ監査</strong></td>
