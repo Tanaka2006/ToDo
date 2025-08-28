@@ -39,8 +39,11 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
         run: |
-          echo "🚀 Installing Vercel CLI..."
-          npm install -g vercel@latest
-          echo "🌐 Deploying to Vercel..."
-          vercel --prod --yes --token=$VERCEL_TOKEN
+          echo "🚀 Starting Vercel deployment..."
+          echo "📁 Current directory: $(pwd)"
+          echo "📋 Vercel project setup:"
+          echo "  - ORG_ID: $VERCEL_ORG_ID"
+          echo "  - PROJECT_ID: $VERCEL_PROJECT_ID"
+          echo "🌐 Deploying to Vercel Production..."
+          npx vercel@latest --prod --yes --token=$VERCEL_TOKEN --build-env VERCEL=1
           echo "✅ Vercel deployment completed successfully!"
