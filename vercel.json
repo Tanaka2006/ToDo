@@ -6,13 +6,7 @@
   "framework": "vite",
   "installCommand": "npm ci",
   "env": {
-    "VERCEL": "1",
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "VERCEL": "1"
-    }
+    "VERCEL": "1"
   },
   "routes": [
     {

@@ -10,10 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "deploy": "npm run build && gh-pages -d dist",
-    "deploy:vercel": "vercel --prod",
-    "ci": "npm run lint && npm run format:check && npm run build"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@fontsource/dotgothic16": "^5.2.6",
