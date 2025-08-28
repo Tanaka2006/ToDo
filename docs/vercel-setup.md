@@ -43,11 +43,52 @@ GitHubリポジトリで以下を設定：
 2. 左メニュー「Secrets and variables」→ 「Actions」
 3. 「New repository secret」で以下を追加：
 
-| Name           | Value                     | 説明           |
-| -------------- | ------------------------- | -------------- |
-| `VERCEL_TOKEN` | 手順2で取得したトークン   | Vercel API認証 |
-| `ORG_ID`       | 手順2で取得したOrg ID     | 組織ID         |
-| `PROJECT_ID`   | 手順2で取得したProject ID | プロジェクトID |
+| Name                | Value                     | 説明           |
+| ------------------- | ------------------------- | -------------- |
+| `VERCEL_TOKEN`      | 手順2で取得したトークン   | Vercel API認証 |
+| `VERCEL_ORG_ID`     | 手順2で取得したOrg ID     | 組織ID         |
+| `VERCEL_PROJECT_ID` | 手順2で取得したProject ID | プロジェクトID |
+
+## 🔧 詳細なGitHubシークレット設定手順
+
+### ステップバイステップ設定ガイド
+
+1. **GitHubリポジトリにアクセス**
+   - `https://github.com/Tanaka2006/ToDo` にアクセス
+   - 「Settings」タブをクリック
+
+2. **Secrets and variables にアクセス**
+   - 左サイドバーの「Secrets and variables」をクリック
+   - 「Actions」を選択
+
+3. **各シークレットを個別に追加**
+
+   **3-1. VERCEL_TOKEN**
+   - 「New repository secret」をクリック
+   - Name: `VERCEL_TOKEN`
+   - Secret: Vercelから取得したトークン値
+   - 「Add secret」をクリック
+
+   **3-2. VERCEL_ORG_ID**
+   - 「New repository secret」をクリック
+   - Name: `VERCEL_ORG_ID`
+   - Secret: Vercelから取得したOrg ID
+   - 「Add secret」をクリック
+
+   **3-3. VERCEL_PROJECT_ID**
+   - 「New repository secret」をクリック
+   - Name: `VERCEL_PROJECT_ID`
+   - Secret: Vercelから取得したProject ID
+   - 「Add secret」をクリック
+
+### 設定完了の確認方法
+
+設定が完了すると、以下のシークレットが表示されるはずです：
+- ✅ `VERCEL_TOKEN`
+- ✅ `VERCEL_ORG_ID` 
+- ✅ `VERCEL_PROJECT_ID`
+
+**注意:** シークレットの値は設定後は表示されません（セキュリティのため）。
 
 ## 🔄 4. 自動デプロイの確認
 
