@@ -6,9 +6,9 @@ export default defineConfig(() => {
   const isVercel = process.env.VERCEL === '1';
   const isDev = process.env.NODE_ENV === 'development';
   const base = isVercel || isDev ? '/' : '/ToDo/';
-  
+
   console.log('🔧 Vite Config:', { isVercel, isDev, base, NODE_ENV: process.env.NODE_ENV });
-  
+
   return {
     plugins: [react()],
     base,

@@ -144,9 +144,6 @@ body {
   background: transparent;
   border: none;
 }
-.react-calendar__month-view__days .react-calendar__tile--now {
-  border-top: 1px solid #ff6b00 !important;
-}
 /* == 進捗リング == */
 .cell-ring {
   position: absolute;
