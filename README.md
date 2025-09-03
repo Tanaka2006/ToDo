@@ -408,9 +408,11 @@ vercel --prod
    - **Branch** を `gh-pages` に設定
 
 2. **手動デプロイ**
+
    ```bash
    npm run deploy
    ```
+
    - `gh-pages`ブランチに自動でビルド結果をプッシュ
    - GitHub Pagesで [アプリケーション](https://Tanaka2006.github.io/ToDo/) にアクセス可能
 
