@@ -93,7 +93,7 @@ yearly：開始日の“月/日”で毎年発生
 </p>
 <h2 align="start">📸 スクリーンショット</h2>
 
-（スクリーンショットは実際のアプリでご確認ください：[🔗 Live Demo](https://Tanaka2006.github.io/ToDo/)）
+（スクリーンショットは実際のアプリでご確認ください：[🔗 ToDo](https://Tanaka2006.github.io/ToDo/)）
 
 <h2 align="start">🧭 使い方</h2>
 右側の カードで当日のタスクを確認し、チェックで完了にします。
@@ -327,7 +327,7 @@ completedDates: string[]; // 完了した日付（YYYY-MM-DD）<br>
   <tbody>
     <tr>
       <td><strong>GitHub Pages</strong></td>
-      <td><a href="https://Tanaka2006.github.io/ToDo/" target="_blank">🔗 Live Demo</a></td>
+      <td><a href="https://Tanaka2006.github.io/ToDo/" target="_blank">🔗 ToDo</a></td>
       <td>手動デプロイ（<code>npm run deploy</code>）</td>
       <td>✅ 無料<br>✅ 自動SSL<br>✅ Git連携</td>
     </tr>
