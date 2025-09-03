@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+# 一時的に無効化 - 手動デプロイを推奨
+# GitHub Actions CI/CDは品質チェック専用とし、デプロイは手動で実行
+on:
+  # push:
+  #   branches: [main]
+  # 手動実行のみ有効
+  workflow_dispatch:
+
+# GitHub Pagesデプロイ用の権限設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Concurrency: 同時デプロイを防止
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # GitHub Pagesデプロイ
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Environment for GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project for GitHub Pages
+        env:
+          NODE_ENV: production
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
