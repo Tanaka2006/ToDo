@@ -1,4 +1,26 @@
-# 手動デプロイガイド - GitHub Actions不要
+# 手動デプロイガイド - CI/CD + 手動デプロイ構成
+
+## 🏗️ 新しい開発フロー
+
+### **CI/CD（自動）+ デプロイ（手動）**の最適構成
+
+✅ **GitHub Actions CI/CD**: 品質保証・ビルドテスト（自動実行）
+- ESLint・Prettier チェック
+- TypeScript・Vite ビルドテスト
+- アーティファクト生成
+
+✅ **デプロイ**: 手動実行（確実・安定）
+- Vercel・Netlify・GitHub Pages
+- 問題が起きても即座に修正可能
+- デプロイタイミングを完全制御
+
+### 🔄 開発ワークフロー
+1. **コード変更** → Git commit & push
+2. **GitHub Actions** → 自動で品質チェック・ビルドテスト
+3. **CI/CD成功確認** → 手動デプロイ実行
+4. **本番サイト更新完了** 🎉
+
+---
 
 ## 🎯 1. Vercel（最推奨・最簡単）
 
@@ -186,6 +208,63 @@ firebase deploy
 #### 🎊 完了！
 - 生成されたFirebase URLでアクセス可能
 - 今後は `npm run build && firebase deploy` でデプロイ
+
+---
+
+## 🚨 Vercel白画面問題の解決方法
+
+### 原因と対策
+
+#### ❌ 問題: Vercelで画面が真っ白
+- **原因**: ベースパス設定の問題
+- **症状**: サイトにアクセスすると何も表示されない
+- **解決**: 環境変数とVite設定の修正
+
+#### ✅ Step 1: Vercel環境変数の設定
+1. Vercelプロジェクト → **Settings** → **Environment Variables**
+2. 新しい環境変数を追加：
+   ```
+   Name: VERCEL
+   Value: 1
+   Environment: Production, Preview, Development (すべてチェック)
+   ```
+3. **Save** → **Redeploy**
+
+#### ✅ Step 2: デプロイログの確認
+Vercelの「Deployments」→ 最新デプロイ → **View Build Logs**で以下を確認：
+```
+🔧 Vite Config: { isVercel: true, isDev: false, base: '/', NODE_ENV: 'production' }
+```
+
+#### ✅ Step 3: 即座に動く代替方法（Netlify）
+Vercelで問題が続く場合の確実な方法：
+
+```bash
+# ローカルでビルド
+cd /Users/Rina/ToDo
+npm run build
+
+# Netlifyでドラッグ&ドロップデプロイ
+# 1. netlify.com でアカウント作成
+# 2. Sitesページで dist フォルダをドラッグ&ドロップ
+# 3. 即座にサイト公開完了！
+```
+
+#### ✅ Step 4: GitHub Pagesの手動デプロイ
+```bash
+# GitHub Pagesに直接デプロイ
+npm run deploy
+
+# GitHubリポジトリ Settings → Pages で gh-pages ブランチを選択
+# URL: https://tanaka2006.github.io/ToDo/
+```
+
+### 🎯 推奨順序
+1. **Vercel環境変数設定** → 再デプロイ
+2. **Netlifyドラッグ&ドロップ** （最も確実）
+3. **GitHub Pages手動デプロイ** （GitHub純正）
+
+いずれの方法でも5分以内にサイトが公開されます！
 
 ---
 

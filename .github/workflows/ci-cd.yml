@@ -26,11 +26,9 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
-        continue-on-error: false
 
       - name: Run Prettier check
         run: npm run format:check
-        continue-on-error: false
 
   # ビルドテスト
   build:
@@ -56,6 +54,6 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-${{ github.sha }}
           path: dist/
           retention-days: 30

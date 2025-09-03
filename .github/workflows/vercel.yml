@@ -1,9 +1,11 @@
 name: Deploy to Vercel
 
+# 一時的に無効化 - 手動デプロイを推奨
+# GitHub Actions CI/CDは品質チェック専用とし、デプロイは手動で実行
 on:
-  push:
-    branches: [main]
-  # 手動実行も可能
+  # push:
+  #   branches: [main]
+  # 手動実行のみ有効
   workflow_dispatch:
 
 jobs:
