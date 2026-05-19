@@ -1,464 +1,72 @@
-<h1 align="center">🗓️ ToDo Calendar</h1>
+# ToDo — 継続しやすいタスク管理体験を目指した “見える化” ToDo
+to-do-umber-five.vercel.app
 
-<p align="center">
-  <em>React + TypeScript + Vite</em><br>
-  <small>カレンダー連動・進捗リング搭載のToDoアプリ</small>
-</p>
-
-<div align="center">
-
-[![ToDo](https://img.shields.io/badge/todo-live-green)](https://Tanaka2006.github.io/ToDo/)
-
-</div>
-
-<h2 align="start">✨ 主な機能（完成 & 予定）</h2>
-
-<li>✅ タスクの CRUD：作成／編集（タイトル・繰り返し・終了日）／削除</li>
-
-<li>🗂️ 一覧：カレンダー各セルに当日の進捗リングを表示（0〜100%）</li>
-
-<li>詳細：日別モーダルでその日のタスクをチェック・編集</li>
-
-<li>🔁 繰り返しルール：none | daily | weekly | monthly | yearly</li>
-
-daily：n 日ごと（上下ボタンで間隔を調整）
-
-weekly：曜日を複数選択
-
-monthly：開始日の“日付”基準。月末は自動補正
-
-yearly：開始日の“月/日”で毎年発生
-
-<li>📅 繰り返し終了日ステッパー：年・月・日を上下ボタンで直感的に設定</li>
-
-<li>🎯 YEAR / WEEK ゴール：自由記述で目標を保存（自動で localStorage に保存）</li>
-
-<li>📈 進捗の可視化：当日・当月の完了率を SVG リングで表示</li>
-
-<li>💾 永続化：localStorage（キー: todoapp:v1）</li>
-
-独自要件として、🔁 繰り返し + 📅 繰り返し終了日ステッパー + 📈 進捗リング + 🎯 ゴール入力を追加実装しています。
-
-<h2 align="left">🛠 技術スタック</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">分野</th>
-      <th align="left">使用技術</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>フロントエンド</td>
-      <td>React + TypeScript（Vite）</td>
-    </tr>
-    <tr>
-      <td>フォント</td>
-      <td>
-        <strong>Jersey 15</strong>：<code>/public/fonts/Jersey15-Regular.ttf</code> を <code>@font-face</code> で読み込み<br>
-        <strong>DotGothic16</strong>：<code>@fontsource/dotgothic16</code> をインストールして読み込み
-      </td>
-    </tr>
-    <tr>
-      <td>UI / Icons</td>
-      <td>独自CSS（App.css, index.css）＋ react-calendar の上書き / <code>react-icons</code></td>
-    </tr>
-    <tr>
-      <td>カレンダー</td>
-      <td><code>react-calendar</code></td>
-    </tr>
-    <tr>
-      <td>状態管理</td>
-      <td>React Hooks（<code>useState</code> / <code>useEffect</code>）</td>
-    </tr>
-    <tr>
-      <td>永続化</td>
-      <td><code>localStorage</code>（キー: <code>todoapp:v1</code>）</td>
-    </tr>
-    <tr>
-      <td>コード品質</td>
-      <td><strong>ESLint</strong> + <strong>Prettier</strong> で自動フォーマット・静的解析</td>
-    </tr>
-    <tr>
-      <td>CI/CD</td>
-      <td><strong>GitHub Actions</strong> で自動テスト・ビルド・デプロイ</td>
-    </tr>
-    
-  </tbody>
-</table>
-<h2>🎨 デザイン（Figma）</h2>
-<p>
-   <a href="https://www.figma.com/design/qN2YVkk0N9sYMzGQsiUcRc/%E7%84%A1%E9%A1%8C?node-id=638-6&t=awxn3oFtJw27Gkf2-1" target="_blank">Figma プレビュー（View Only）</a>
-</p>
-<h2 align="start">📸 スクリーンショット</h2>
-
-（スクリーンショットは実際のアプリでご確認ください：[🔗 ToDo](https://Tanaka2006.github.io/ToDo/)）
-
-<h2 align="start">🧭 使い方</h2>
-右側の カードで当日のタスクを確認し、チェックで完了にします。
-
-カレンダーの任意日付をクリックすると、日別モーダルが開きます。
-
-**「＋ 追加する」**でタスクを作成。右端の ✏️ ボタンで編集できます。
-
-繰り返しは「なし／毎日／毎週／毎月／毎年」から選択。➡︎ daily は n 日ごと、weekly は曜日を複数選択。そして、繰り返し終了日を設定することもできます。
-
-終了日を設定する場合はチェック ON → 年・月・日ステッパーで調整。
-
-当日／当月のリングが自動で更新され、完了率がひと目で分かります。
-
-<h2 align="start">🧱 データモデル</h2>
-
-export type Task = {<br>
-id: string; // 任意 ID（UUID など）<br>
-title: string; // タスク名<br>
-date: string; // 開始日 (YYYY-MM-DD)<br>
-repeat: "none" | "daily" | "weekly" | "monthly" | "yearly";<br>
-repeatInterval?: number; // daily: 何日ごと<br>
-repeatDays?: number[]; // weekly: 曜日（複数可）<br>
-repeatEndDate?: string; // 繰り返し終了 (YYYY-MM-DD)<br>
-completedDates: string[]; // 完了した日付（YYYY-MM-DD）<br>
-};
-
-保存：localStorage.setItem("todoapp:v1", JSON.stringify(tasks))
-
-出現判定：isOnDate(task, ymd) にロジックを集約
-
-進捗計算：getProgressFor(ymd)（当日）／getMonthlyProgress(baseDate)（月間）
-
-<h2 align="start">📂 ディレクトリ（抜粋）</h2>
-
-```
-├─ index.html
-├─ src/
-│  ├─ main.tsx
-│  ├─ App.tsx  # 画面本体
-│  ├─ App.css  # レイアウト/モーダル等
-│  └─ index.css  # ベーススタイル/フォント
-├─ public/
-│  └─ fonts/
-│     └─ Jersey15-Regular.ttf
-├─ .github/
-│  └─ workflows/
-│     └─ ci-cd.yml       # CI/CDパイプライン（品質チェック・ビルド）
-├─ .vscode/
-│  └─ settings.json      # VS Code設定（フォーマット・Lint）
-├─ .prettierrc          # Prettier設定
-├─ eslint.config.js     # ESLint設定
-└─ package.json
-```
-
-<h2 align="start">🚀 開発環境</h2>
-
-<details>
-<summary><strong>💻 Code Formatter・Linter</strong></summary>
-<br>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">ツール</th>
-      <th align="left">役割</th>
-      <th align="left">設定ファイル</th>
-      <th align="left">実行コマンド</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>ESLint</strong></td>
-      <td>TypeScript・React対応の静的解析<br>コードの問題を自動検出</td>
-      <td><code>eslint.config.js</code></td>
-      <td><code>npm run lint</code></td>
-    </tr>
-    <tr>
-      <td><strong>Prettier</strong></td>
-      <td>コード自動フォーマット<br>統一されたコードスタイル</td>
-      <td><code>.prettierrc</code></td>
-      <td><code>npm run format</code></td>
-    </tr>
-    <tr>
-      <td><strong>VS Code設定</strong></td>
-      <td>保存時自動フォーマット・Lint修正<br>開発効率の向上</td>
-      <td><code>.vscode/settings.json</code></td>
-      <td>自動実行（保存時）</td>
-    </tr>
-  </tbody>
-</table>
-
-<blockquote>
-<p>💡 <strong>自動化のメリット</strong></p>
-<ul>
-  <li>✅ コードスタイルの統一</li>
-  <li>✅ バグの早期発見</li>
-  <li>✅ コードレビューの品質向上</li>
-  <li>✅ 開発効率の向上</li>
-</ul>
-</blockquote>
-
-</details>
-
-<details>
-<summary><strong>🔄 CI/CD（GitHub Actions）</strong></summary>
-<br>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">ワークフロー</th>
-      <th align="left">トリガー</th>
-      <th align="left">実行内容</th>
-      <th align="left">設定ファイル</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>CI/CDパイプライン</strong></td>
-      <td>
-        • Push (main, develop)<br>
-        • Pull Request (main)
-      </td>
-      <td>
-        1️⃣ コード品質チェック（ESLint・Prettier）<br>
-        2️⃣ ビルドテスト（TypeScript・Vite）<br>
-        3️⃣ アーティファクト生成
-      </td>
-      <td><code>.github/workflows/ci-cd.yml</code></td>
-    </tr>
-  </tbody>
-</table>
-
-<h4>📊 ワークフロー実行状況</h4>
-<div align="center">
-
-[![CI/CD Pipeline](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Tanaka2006/ToDo/actions/workflows/ci-cd.yml)
-
-</div>
-
-<blockquote>
-<p>🚀 <strong>CI/CDの効果</strong></p>
-<ul>
-  <li>✅ コードの品質保証</li>
-  <li>✅ ビルドの自動検証</li>
-  <li>✅ 開発ワークフローの効率化</li>
-</ul>
-</blockquote>
-
-</details>
-
-<details>
-<summary><strong>⚡ 開発コマンド</strong></summary>
-<br>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">分類</th>
-      <th align="left">コマンド</th>
-      <th align="left">説明</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="3"><strong>開発</strong></td>
-      <td><code>npm run dev</code></td>
-      <td>🔥 開発サーバー起動（ホットリロード付き）</td>
-    </tr>
-    <tr>
-      <td><code>npm run build</code></td>
-      <td>🏗️ プロダクションビルド</td>
-    </tr>
-    <tr>
-      <td><code>npm run preview</code></td>
-      <td>👀 ビルド結果をプレビュー</td>
-    </tr>
-    <tr>
-      <td rowspan="4"><strong>コード品質</strong></td>
-      <td><code>npm run lint</code></td>
-      <td>🔍 ESLintによるコードチェック</td>
-    </tr>
-    <tr>
-      <td><code>npm run lint:fix</code></td>
-      <td>🔧 ESLintによる自動修正</td>
-    </tr>
-    <tr>
-      <td><code>npm run format</code></td>
-      <td>✨ Prettierによるフォーマット</td>
-    </tr>
-    <tr>
-      <td><code>npm run format:check</code></td>
-      <td>👁️ フォーマットチェック（修正なし）</td>
-    </tr>
-    <tr>
-      <td rowspan="2"><strong>統合</strong></td>
-      <td><code>npm run ci</code></td>
-      <td>🔄 CI環境と同じチェック実行</td>
-    </tr>
-    <tr>
-      <td><code>npm run deploy</code></td>
-      <td>🚀 手動デプロイ（gh-pages）</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4>📋 推奨開発フロー</h4>
-<ol>
-  <li><code>npm run dev</code> で開発サーバー起動</li>
-  <li>コード編集（VS Codeで保存時自動フォーマット）</li>
-  <li><code>npm run ci</code> でローカルチェック</li>
-  <li>Git commit & push（CI/CDが自動実行）</li>
-</ol>
-
-</details>
-
-<details>
-<summary><strong>☁️ デプロイ</strong></summary>
-<br>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">サービス</th>
-      <th align="left">URL</th>
-      <th align="left">デプロイ方法</th>
-      <th align="left">特徴</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>GitHub Pages</strong></td>
-      <td><a href="https://Tanaka2006.github.io/ToDo/" target="_blank">🔗 ToDo</a></td>
-      <td>手動デプロイ（<code>npm run deploy</code>）</td>
-      <td>✅ 無料<br>✅ 自動SSL<br>✅ Git連携</td>
-    </tr>
-    <tr>
-      <td><strong>Vercel</strong></td>
-      <td><em>設定時に利用可能</em></td>
-      <td>GitHub連携 or CLI</td>
-      <td>⚡ 高速<br>🎯 React最適化<br>🔄 プレビューURL</td>
-    </tr>
-    <tr>
-      <td><strong>Netlify</strong></td>
-      <td><em>設定時に利用可能</em></td>
-      <td>ドラッグ&ドロップ or Git連携</td>
-      <td>🛠️ 豊富な機能<br>📋 フォーム処理<br>⚡ CDN</td>
-    </tr>
-    <tr>
-      <td><strong>Firebase Hosting</strong></td>
-      <td><em>設定時に利用可能</em></td>
-      <td>Firebase CLI</td>
-      <td>🌐 グローバルCDN<br>🔒 無料SSL<br>📊 分析機能</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4>🎯 推奨デプロイ手順（Vercel）</h4>
-<ol>
-  <li><a href="https://vercel.com/" target="_blank">Vercel</a> でアカウント作成</li>
-  <li>「Import Git Repository」でGitHubリポジトリを選択</li>
-  <li>フレームワーク「Vite」を選択（自動検出）</li>
-  <li>「Deploy」をクリック → 自動デプロイ開始</li>
-  <li>カスタムドメイン設定（オプション）</li>
-</ol>
-
-<h4>⚙️ 手動デプロイコマンド</h4>
-
-```bash
-# Netlify CLI
-npm install -g netlify-cli
-npm run build
-netlify deploy --prod --dir=dist
-
-# Firebase CLI
-npm install -g firebase-tools
-npm run build
-firebase login
-firebase init hosting
-firebase deploy
-
-# Vercel CLI
-npm install -g vercel
-npm run build
-vercel --prod
-```
-
-<blockquote>
-<p>💡 <strong>デプロイサービス比較</strong></p>
-<ul>
-  <li>🆓 <strong>無料で始めたい</strong> → GitHub Pages / Vercel</li>
-  <li>⚡ <strong>高速・最適化重視</strong> → Vercel</li>
-  <li>🛠️ <strong>機能豊富</strong> → Netlify</li>
-  <li>🏢 <strong>企業・スケール重視</strong> → AWS / Firebase</li>
-</ul>
-</blockquote>
-
-</details>
+「毎日頑張りたいけど、ToDoが続かない」問題に対して、**“達成感が視覚的に積み上がる体験”** を作りたくて開発したタスク管理アプリです。  
+このリポジトリは、私にとって**初めて本格的に個人開発したプロダクト**でもあります。
 
 ---
 
-## 🌐 GitHub Pages デプロイ設定
+## アプリ概要（What）
+**カレンダー × 進捗リング**で、日々のタスク達成度がひと目で分かるToDoアプリです。
 
-このプロジェクトは**手動コマンド**でGitHub Pagesにデプロイできます。
+- 月全体の達成率（Completion Rate）をリングで可視化
+- 日別のタスク進捗もカレンダー上にリング表示
+- 日付を移動しながら「その日のタスク」を素早くプレビュー
+- クリックで日別編集（追加・完了・編集）
+- 繰り返しタスク（毎日 / 毎週 / 毎月 / 毎年）に対応
 
-### 📋 設定手順
-
-1. **GitHubリポジトリの設定**
-   - リポジトリの `Settings` → `Pages` に移動
-   - **Source** を `Deploy from a branch` に設定
-   - **Branch** を `gh-pages` に設定
-
-2. **手動デプロイ**
-
-   ```bash
-   npm run deploy
-   ```
-
-   - `gh-pages`ブランチに自動でビルド結果をプッシュ
-   - GitHub Pagesで [アプリケーション](https://Tanaka2006.github.io/ToDo/) にアクセス可能
-
-3. **デプロイ確認**
-   - リポジトリの `Actions` タブで処理状況を確認
-   - 成功すると [GitHub Pages](https://Tanaka2006.github.io/ToDo/) でアプリにアクセス可能
-
-<blockquote>
-<p>🔧 <strong>設定のポイント</strong></p>
-<ul>
-  <li>📦 <code>vite.config.ts</code> でbase pathを <code>/ToDo/</code> に設定済み</li>
-  <li>🔀 SPAルーティング対応済み</li>
-  <li>🚀 <code>npm run deploy</code> でワンコマンドデプロイ</li>
-</ul>
-</blockquote>
+> 「リストに書いて終わり」ではなく、**続いていること・積み上がっていることが見える**ことを重視しました。
 
 ---
 
-## ✅ 開発・デプロイ セットアップ完了状況
+## なぜ作ったのか（Why）
+ToDoアプリは世の中にたくさんありますが、個人的には
 
-<table>
-  <tbody>
-    <tr>
-      <td>✅</td>
-      <td><strong>ESLint・Prettier設定</strong></td>
-      <td>コードフォーマット・静的解析の自動化</td>
-    </tr>
-    <tr>
-      <td>✅</td>
-      <td><strong>VS Code設定</strong></td>
-      <td>保存時自動フォーマット・Lint修正</td>
-    </tr>
-    <tr>
-      <td>✅</td>
-      <td><strong>GitHub Actions</strong></td>
-      <td>CI/CD（コード品質チェック・ビルド検証）</td>
-    </tr>
-    <tr>
-      <td>✅</td>
-      <td><strong>GitHub Pages</strong></td>
-      <td>手動デプロイ・静的ホスティング</td>
-    </tr>
-    <tr>
-      <td>✅</td>
-      <td><strong>プロジェクト整理</strong></td>
-      <td>不要ファイル削除・ドキュメント整備</td>
-    </tr>
-  </tbody>
-</table>
+- **“できなかった日” が続くとモチベが下がる**
+- タスク一覧だけだと **達成感や成長が残りにくい**
+- 「習慣化」の文脈では、**行動のログがUIに残る**方が続きやすい
+
+と感じていました。
+
+そこで、タスク管理を「管理」ではなく **“継続の体験設計”** として捉え直し、  
+**進捗が自然に目に入り、振り返りたくなるUI**を作ることを目標にしました。
+
+---
+
+## 工夫したポイント（UI/UX / Implementation）
+### 1) 達成が “面” で見える（カレンダー × リング）
+- 日ごとの達成率をリングで表示し、月全体がヒートマップのように「見える化」
+- 1日単位の成功体験を、視覚的に積み上げる設計
+
+### 2) “今日だけ” に閉じない操作導線
+- 上部のプレビューで前日/翌日にスッと移動でき、**未来や過去にも意識が向く**
+- 「カレンダーを開いて探す」よりも軽く、日々の振り返りを促す
+
+### 3) タスクのモデル設計（繰り返し × 完了日）
+- タスクは `completedDates` を持ち、**“その日だけ完了” を記録**する形式  
+  → 習慣タスクでも「毎日やった/やってない」が残る
+- 繰り返し終了日も設定でき、短期目標にも使える
+
+---
+
+## 使用技術（Tech Stack）
+- **React + TypeScript**
+- **Vite**
+- **react-calendar**（カレンダーUI）
+- **react-icons**（アイコン）
+- **ESLint / Prettier**（品質・整形）
+- **GitHub Actions**（Lint/Format/Build のCI）
+
+---
+
+## 今後改善したい点（Next）
+- **タスク編集の情報設計**：項目が増えても迷わない構造（優先度・メモ・タグなど）
+- **達成率の意味の調整**：未設定タスクの日をどう扱うか、習慣タスクの重み付けなど
+- **データの持ち運び**：エクスポート/インポート、ログのバックアップ
+- **アクセシビリティ**：キーボード操作、コントラスト、フォーカス設計
+- **モバイル最適化**：タップ領域とレイアウトの再設計（特に編集画面）
+
+---
+## 補足
+このプロダクトは「継続しやすいタスク管理体験」をテーマに、UI/UXの試行錯誤を含めて作った個人開発です。  
+実装だけでなく、**体験の狙い → 画面構成 → 状態管理/データモデル**まで一貫して設計する練習として取り組みました。
